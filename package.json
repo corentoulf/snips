@@ -1,0 +1,19 @@
+{
+  "name": "snips",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "hermes-javascript": "^0.4.0",
+    "moment": "^2.24.0",
+    "mqtt": "^3.0.0",
+    "node-deezer": "^0.3.3",
+    "request": "^2.88.0"
+  }
+}
