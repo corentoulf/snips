@@ -43,16 +43,16 @@ withHermes(hermes => {
 
     dialog.flow('corentoulf:velov-global-state', (msg,flow) => {
         console.log(msg)
-        flow.end()
+        
         tools.getStationStatus().then(function(stationStatus){
             console.log(stationStatus);
-            return 'Hum. Pas des masses de vélo aujourd\'hui'
+            return 'stationStatus'
         })
         .catch(function(e){ 
             console.log(e);
             return 'Hum. Je crois qu\'on a déraillé là...'
         });
-        
+        flow.end()
     })
     
 })
