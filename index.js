@@ -48,7 +48,7 @@ withHermes(hermes => {
             .then(function(stationStatus){
                 console.log(stationStatus);
                 flow.end()
-                return stationStatus;
+                return 'test';//stationStatus;
             })
             .catch(function(e){ 
                 console.log(e);
