@@ -44,16 +44,17 @@ withHermes(hermes => {
     dialog.flow('corentoulf:velov-global-state', (msg,flow) => {
         console.log(msg)
         
-        tools.getStationStatus().then(function(stationStatus){
-            console.log(stationStatus);
-            flow.end()
-            return 'stationStatus'
-        })
-        .catch(function(e){ 
-            console.log(e);
-            flow.end()
-            return 'Hum. Je crois qu\'on a déraillé là...'
-        });
+        tools.getStationStatus()
+            .then(function(stationStatus){
+                console.log(stationStatus);
+                flow.end()
+                return stationStatus;
+            })
+            .catch(function(e){ 
+                console.log(e);
+                flow.end()
+                return 'Hum. Je crois qu\'on a déraillé là...';
+            });
     })
     
 })
