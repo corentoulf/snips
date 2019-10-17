@@ -35,27 +35,28 @@ function onListeningStateChanged(listening) {
 const { withHermes } = require('hermes-javascript');
 withHermes(hermes => {
     const dialog = hermes.dialog();
+
+    //start Deezer flow response
     dialog.flow('corentoulf:play-flow', (msg,flow) => {
         console.log(msg)
         flow.end()
         return 'C\'est parti, on met les Watt'
     })
 
+    //global Velov state response
     dialog.flow('corentoulf:velov-global-state', (msg,flow) => {
         console.log(msg)
-        return 'test';//stationStatus;
-        flow.end()
-        // tools.getStationStatus()
-        //     .then(function(stationStatus){
-        //         console.log(stationStatus);
-        //         flow.end()
-        //         return 'test';//stationStatus;
-        //     })
-        //     .catch(function(e){ 
-        //         console.log(e);
-        //         flow.end()
-        //         return 'Hum. Je crois qu\'on a déraillé là...';
-        //     });
+        tools.getStationStatus()
+            .then(function(stationStatus){
+                console.log(stationStatus);
+                flow.end()
+                return 'test';//stationStatus;
+            })
+            .catch(function(e){ 
+                console.log(e);
+                flow.end()
+                return 'Hum. Je crois qu\'on a déraillé là...';
+            });
     })
     
 })
