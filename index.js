@@ -46,13 +46,14 @@ withHermes(hermes => {
         
         tools.getStationStatus().then(function(stationStatus){
             console.log(stationStatus);
+            flow.end()
             return 'stationStatus'
         })
         .catch(function(e){ 
             console.log(e);
+            flow.end()
             return 'Hum. Je crois qu\'on a déraillé là...'
         });
-        flow.end()
     })
     
 })
