@@ -46,7 +46,7 @@ withHermes(hermes => {
         flow.end()
         tools.getStationStatus().then(function(stationStatus){
             console.log(stationStatus);
-            return stationStatus
+            return 'Hum. Pas des masses de vélo aujourd\'hui'
         })
         .catch(function(e){ 
             console.log(e);
