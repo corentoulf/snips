@@ -71,6 +71,10 @@ withHermes(hermes => {
 
 function handler (msg, flow) {
     console.log(msg)
+    if(msg.input == 'stop'){
+        flow.end(); 
+        return 'OK, on arrête là.'
+    } 
     tools.getStationStatus()
         .then(function(stationStatus){
             console.log(stationStatus);
@@ -83,7 +87,7 @@ function handler (msg, flow) {
             return 'Hum. Je crois qu\'on a déraillé là...';
         });
     /* Register the same intent and handler as a possible continuation (loop). */
-    flow.continue('corentoulf:velov-global-state', handler)
+    //flow.continue('corentoulf:velov-global-state', handler)
     /* If not recognized, register witze as the next possible intent and loop. */
     flow.notRecognized((msg, flow) => {
         flow.continue('corentoulf:velov-global-state', handler)
