@@ -44,19 +44,74 @@ withHermes(hermes => {
     })
 
     //global Velov state response
-    dialog.flow('corentoulf:velov-global-state', (msg,flow) => {
+    dialog.flow('corentoulf:velov-global-state', handler)
+    // dialog.flow('corentoulf:velov-global-state', (msg,flow) => {
+    //     console.log(msg)
+    //     tools.getStationStatus()
+    //         .then(function(stationStatus){
+    //             console.log(stationStatus);
+    //             flow.end()
+    //             return 'test';//stationStatus;
+    //         })
+    //         .catch(function(e){ 
+    //             console.log(e);
+    //             flow.end()
+    //             return 'Hum. Je crois qu\'on a déraillé là...';
+    //         });
+    // })
+    dialog.on('corentoulf:loopend', msg => {
         console.log(msg)
-        tools.getStationStatus()
-            .then(function(stationStatus){
-                console.log(stationStatus);
-                flow.end()
-                return 'test';//stationStatus;
-            })
-            .catch(function(e){ 
-                console.log(e);
-                flow.end()
-                return 'Hum. Je crois qu\'on a déraillé là...';
-            });
+        dialog.publish('end_session', {
+            sessionId: msg.sessionId,
+            text: 'Au revoir !'
+        })
     })
-    
 })
+
+function handler (msg, flow) {
+    console.log(msg)
+    tools.getStationStatus()
+        .then(function(stationStatus){
+            console.log(stationStatus);
+            flow.end()
+            return 'test';//stationStatus;
+        })
+        .catch(function(e){ 
+            console.log(e);
+            flow.end()
+            return 'Hum. Je crois qu\'on a déraillé là...';
+        });
+    /* Register the same intent and handler as a possible continuation (loop). */
+    flow.continue('corentoulf:velov-global-state', handler)
+    /* If "loopende", well, end the loop. */
+    flow.continue('corentoulf:loopend', (msg, flow) => {
+        flow.end()
+        return 'Au revoir'
+    })
+    /* If not recognized, register witze as the next possible intent and loop. */
+    flow.notRecognized((msg, flow) => {
+        flow.continue('corentoulf:velov-global-state', handler)
+    })
+    //return witz
+}
+
+
+///////////\\\\\\\\\\\\\\\\\
+// function handler (msg, flow) {
+//     console.log(msg)
+//     const witz = handleWitze(msg)
+//     /* Register the same intent and handler as a possible continuation (loop). */
+//     flow.continue('udsnips:witze', handler)
+//     /* If "loopende", well, end the loop. */
+//     flow.continue('udsnips:loopende', (msg, flow) => {
+//         flow.end()
+//         return 'Auf wiedersehen'
+//     })
+//     /* If not recognized, register witze as the next possible intent and loop. */
+//     flow.notRecognized((msg, flow) => {
+//         flow.continue('udsnips:witze', handler)
+//     })
+
+//     return witz
+// }
+// dialog.flow('udsnips:witze', handler)
