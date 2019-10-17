@@ -59,13 +59,13 @@ withHermes(hermes => {
     //             return 'Hum. Je crois qu\'on a déraillé là...';
     //         });
     // })
-    dialog.on('corentoulf:loopend', msg => {
-        console.log(msg)
-        dialog.publish('end_session', {
-            sessionId: msg.sessionId,
-            text: 'Au revoir !'
-        })
-    })
+    // dialog.on('corentoulf:loopend', msg => {
+    //     console.log(msg)
+    //     dialog.publish('end_session', {
+    //         sessionId: msg.sessionId,
+    //         text: 'Au revoir !'
+    //     })
+    // })
 })
 
 function handler (msg, flow) {
@@ -84,10 +84,10 @@ function handler (msg, flow) {
     /* Register the same intent and handler as a possible continuation (loop). */
     flow.continue('corentoulf:velov-global-state', handler)
     /* If "loopende", well, end the loop. */
-    flow.continue('corentoulf:loopend', (msg, flow) => {
-        flow.end()
-        return 'Au revoir'
-    })
+    // flow.continue('corentoulf:loopend', (msg, flow) => {
+    //     flow.end()
+    //     return 'Au revoir'
+    // })
     /* If not recognized, register witze as the next possible intent and loop. */
     flow.notRecognized((msg, flow) => {
         flow.continue('corentoulf:velov-global-state', handler)
