@@ -74,8 +74,11 @@ function handler (msg, flow) {
     if(msg.input == 'stop'){
         flow.end(); 
         return 'OK, on arrête là.'
-    } 
-    tools.getStationStatus()
+    }
+    flow.notRecognized((msg, flow) => {
+        flow.continue('corentoulf:velov-global-state', handler)
+    })
+    return tools.getStationStatus()
         .then(function(stationStatus){
             console.log(stationStatus);
             flow.end()
@@ -86,11 +89,5 @@ function handler (msg, flow) {
             flow.end()
             return 'Hum. Je crois qu\'on a déraillé là...';
         });
-    /* Register the same intent and handler as a possible continuation (loop). */
-    //flow.continue('corentoulf:velov-global-state', handler)
-    /* If not recognized, register witze as the next possible intent and loop. */
-    flow.notRecognized((msg, flow) => {
-        flow.continue('corentoulf:velov-global-state', handler)
-    })
-    //return witz
+    
 }
