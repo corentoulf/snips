@@ -32,6 +32,7 @@ function onListeningStateChanged(listening) {
     console.log("[Snips Log] " + (listening ? "Start" : "Stop") + " listening");
 }
 
+
 const { withHermes } = require('hermes-javascript');
 withHermes(hermes => {
     const dialog = hermes.dialog();
@@ -83,11 +84,6 @@ function handler (msg, flow) {
         });
     /* Register the same intent and handler as a possible continuation (loop). */
     flow.continue('corentoulf:velov-global-state', handler)
-    /* If "loopende", well, end the loop. */
-    // flow.continue('corentoulf:loopend', (msg, flow) => {
-    //     flow.end()
-    //     return 'Au revoir'
-    // })
     /* If not recognized, register witze as the next possible intent and loop. */
     flow.notRecognized((msg, flow) => {
         flow.continue('corentoulf:velov-global-state', handler)
@@ -115,3 +111,4 @@ function handler (msg, flow) {
 //     return witz
 // }
 // dialog.flow('udsnips:witze', handler)
+
