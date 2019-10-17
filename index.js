@@ -90,25 +90,3 @@ function handler (msg, flow) {
     })
     //return witz
 }
-
-
-///////////\\\\\\\\\\\\\\\\\
-// function handler (msg, flow) {
-//     console.log(msg)
-//     const witz = handleWitze(msg)
-//     /* Register the same intent and handler as a possible continuation (loop). */
-//     flow.continue('udsnips:witze', handler)
-//     /* If "loopende", well, end the loop. */
-//     flow.continue('udsnips:loopende', (msg, flow) => {
-//         flow.end()
-//         return 'Auf wiedersehen'
-//     })
-//     /* If not recognized, register witze as the next possible intent and loop. */
-//     flow.notRecognized((msg, flow) => {
-//         flow.continue('udsnips:witze', handler)
-//     })
-
-//     return witz
-// }
-// dialog.flow('udsnips:witze', handler)
-

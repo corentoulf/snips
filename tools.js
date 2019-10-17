@@ -10,7 +10,7 @@ module.exports = {
     //Angle Juliette Récamier => 6028
     //derrière part dieu => 3015
     getStationStatus : function(){
-        //return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             var favStation = ['6044','3101','3003','3087','6028','3015','3037','3034'];
             var stationStatus = [];
             var apiKeyVelov = process.env.JC_DECAUX_API_KEY
@@ -32,7 +32,7 @@ module.exports = {
                 });
             });       
                 return(stationStatus);
-        //})
+        })
     }
 }
 
