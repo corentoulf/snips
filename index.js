@@ -45,49 +45,18 @@ withHermes(hermes => {
     })
 
     //global Velov state response
-    dialog.flow('corentoulf:velov-global-state', handler)
-    // dialog.flow('corentoulf:velov-global-state', (msg,flow) => {
-    //     console.log(msg)
-    //     tools.getStationStatus()
-    //         .then(function(stationStatus){
-    //             console.log(stationStatus);
-    //             flow.end()
-    //             return 'test';//stationStatus;
-    //         })
-    //         .catch(function(e){ 
-    //             console.log(e);
-    //             flow.end()
-    //             return 'Hum. Je crois qu\'on a déraillé là...';
-    //         });
-    // })
-    // dialog.on('corentoulf:loopend', msg => {
-    //     console.log(msg)
-    //     dialog.publish('end_session', {
-    //         sessionId: msg.sessionId,
-    //         text: 'Au revoir !'
-    //     })
-    // })
-})
-
-function handler (msg, flow) {
-    console.log(msg)
-    if(msg.input == 'stop'){
-        flow.end(); 
-        return 'OK, on arrête là.'
-    }
-    flow.notRecognized((msg, flow) => {
-        flow.continue('corentoulf:velov-global-state', handler)
+    dialog.flow('corentoulf:velov-global-state', (msg,flow) => {
+        console.log(msg)
+        return tools.getStationStatus()
+            .then(function(stationStatus){
+                console.log(stationStatus);
+                flow.end()
+                return stationStatus;
+            })
+            .catch(function(e){ 
+                console.log(e);
+                flow.end()
+                return 'Hum. Je crois qu\'on a déraillé là...';
+            });
     })
-    return tools.getStationStatus()
-        .then(function(stationStatus){
-            console.log(stationStatus);
-            flow.end()
-            return 'test';//stationStatus;
-        })
-        .catch(function(e){ 
-            console.log(e);
-            flow.end()
-            return 'Hum. Je crois qu\'on a déraillé là...';
-        });
-    
-}
+})
