@@ -4,8 +4,8 @@ var deezer = new DZ();
 
 // Now use node-deezer to generate the the link where you can redirect
 // your users to allow your app to access her/his Deezer account
-var appId = '374644'; // from developers.deezer.com
-var appSecret = 'b6b614771738ce955b908162cfa95d03'; // from developers.deezer.com
+var appId = ''; // from developers.deezer.com
+var appSecret = ''; // from developers.deezer.com
 var redirectUrl = 'http://localhost:3000/deezerCallback'; // somewhere in your app, see below
 var loginUrl = deezer.getLoginUrl(appId, redirectUrl);
 
